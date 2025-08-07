@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rathwan Todo</title>
+  <style>
+    body {
+      background: linear-gradient(#2193B0, #ff7e5f, #feb47b);
+      min-height: 100vh;
+      padding: 30px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    input,
+    #remind-time {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      outline: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: 0.3s ease;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      background-color: #ffffff;
+      color: #333;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover {
+      background-color: #f4f4f4;
+      transform: scale(1.05);
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: fadeIn 0.5s ease;
+      backdrop-filter: blur(6px);
+      transition: background 0.3s, opacity 0.3s;
+    }
+
+    .task-text {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .pass-icon {
+      font-size: 20px;
+      margin-left: 10px;
+      animation: bounce 1s ease infinite alternate;
+    }
+
+    .delete-btn {
+      background-color: #ff4d4d;
+      color: white;
+      padding: 5px 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      margin-left: 10px;
+    }
+
+    .delete-btn:hover {
+      background-color: #cc0000;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-3px);
+      }
+    }
+
+    .bottom-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .animated-alert {
+      animation: pulse 0.5s ease-in-out alternate infinite;
+      color: yellow;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+    }
+
+    .note {
+      font-size: 14px;
+      font-style: italic;
+      margin-left: 10px;
+      color: #00ffee;
+    }
+
+    .timestamp {
+      font-size: 12px;
+      color: #ccc;
+      margin-left: 10px;
+    }
+
+    @media (max-width: 600px) {
+      button {
+        width: 100%;
+      }
+
+      input,
+      #remind-time {
+        width: 100%;
+      }
+
+      .bottom-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h2>📝 ToDo List</h2>
+  <hr>
+  <input id="input" placeholder="Type something here">
+  <input type="time" id="remind-time">
+  <button onclick="add()">Add</button>
+
+  <ul id="list-container"></ul>
+
+  <div class="bottom-bar">
+    <button onclick="done()">Save</button>
+    <button onclick="clearAll()">Reset</button>
+  </div>
+
+  <script>
+    const ul = document.getElementById("list-container");
+    const input = document.getElementById("input");
+    const remindTimeInput = document.getElementById("remind-time");
+
+    window.onload = () => {
+      const saved = localStorage.getItem("todoList");
+      if (saved) ul.innerHTML = saved;
+      checkReminderTime();
+    };
+
+    function add() {
+      if (input.value.trim() !== "") {
+        const listitem = document.createElement("li");
+        const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        listitem.innerHTML = `
+          <span class="task-text">
+            ${input.value}
+            <span class="timestamp">[${timestamp}]</span>
+          </span>
+          <span class="pass-icon" onclick="showCongrats(this)">✔️</span>
+          <button class="delete-btn" onclick="deleteItem(this)">Delete</button>
+        `;
+        ul.prepend(listitem);
+        input.value = "";
+        saveToLocal();
+      }
+    }
+
+    function deleteItem(btn) {
+      btn.parentElement.remove();
+      saveToLocal();
+    }
+
+    function clearAll() {
+      ul.innerHTML = "";
+      localStorage.removeItem("todoList");
+    }
+
+    function done() {
+      alertWithAnimation("✅ List Saved Successfully!");
+      saveToLocal();
+    }
+
+    function showCongrats(icon) {
+      const li = icon.parentElement;
+      const note = document.createElement("span");
+      note.className = "note";
+      note.textContent = " 🎉 Well done!";
+      li.querySelector(".task-text").appendChild(note);
+      alertWithAnimation("🎊 Great job! Keep going!");
+    }
+
+    function saveToLocal() {
+      localStorage.setItem("todoList", ul.innerHTML);
+    }
+
+    function alertWithAnimation(message) {
+      const alertBox = document.createElement("div");
+      alertBox.innerText = message;
+      alertBox.className = "animated-alert";
+      alertBox.style.position = "fixed";
+      alertBox.style.top = "10%";
+      alertBox.style.left = "50%";
+      alertBox.style.transform = "translateX(-50%)";
+      alertBox.style.background = "#333";
+      alertBox.style.padding = "15px 25px";
+      alertBox.style.borderRadius = "10px";
+      alertBox.style.color = "#fff";
+      alertBox.style.zIndex = "999";
+      alertBox.style.fontWeight = "bold";
+      document.body.appendChild(alertBox);
+      setTimeout(() => alertBox.remove(), 2500);
+    }
+
+    function checkReminderTime() {
+      setInterval(() => {
+        const now = new Date();
+        const current = now.toTimeString().slice(0, 5);
+        const reminder = remindTimeInput.value;
+        if (reminder && current === reminder) {
+          alertWithAnimation("⏰ Reminder! Check your tasks.");
+        }
+      }, 60000);
+    }
+  </script>
+</body>
+
+</html>
