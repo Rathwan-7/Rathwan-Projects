@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Mohammed Rathwan</title>
+    <link rel="icon" type="image/png" href="profilio.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script>
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-bar a');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 50) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === section.getAttribute('id')) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    
+    
+</head>
+<body>
+    <header class="header">
+        <a href="#home" class="logo"> <span> Portfolio </span> </a>
+
+        <i class='bx bx-menu' id="menu-icon"></i>
+
+        <nav class="nav-bar">
+            <a href="#home" style="--i:1;" class="active">Home</a>
+            <a href="#education" style="--i:2;">Education</a>
+            <a href="#skills" style="--i:3;">Skills</a>
+            
+        </nav>
+    </header>
+
+    <section class="home" id="home">
+        <div class="home-content">
+            <h1>Hey, It's <span> Rathwan <span> </h1>
+            <h3>And I'm a <span class="multiple-text"></span> </h3>
+            <p> I’m a HND Software Engineering student with a passion for full-stack development and mobile app design. Combining my academic achievements with hands-on experience, I create innovative and efficient solutions for complex problems. With a strong foundation in coding, problem-solving, and cutting-edge technologies, I’m committed to building seamless and impactful digital experiences. Let’s work together to turn great ideas into reality. </p>
+
+                <div class="social-media">
+                    <a href="https://github.com/Rathwan-7" style="--i:7;" target="_blank"><i class='bx bxl-github'></i></i></a>
+                    <a href="https://www.linkedin.com/in/mohammed-rathwan-45680632b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" style="--i:8;" target="_blank"><i class='bx bxl-linkedin' ></i></a>
+                    <a href="https://www.instagram.com/rathwan_7/" style="--i:9;"><i class='bx bxl-instagram-alt' target="_blank"></i></a>
+                    <a href="https://www.facebook.com/share/1B1bQQxDVR/" style="--i:10;" target="_blank"><i class='bx bxl-facebook'></i></a>
+                </div>
+
+                <div>
+                    <a href="#" class="btn">Download CV</a>
+                </div>
+                
+                
+        </div>
+        <div class="home-img">
+            <img src="rathwan portfolio2.png" alt="img">
+        </div>
+    </section>
+
+    <!-- Education -->
+
+    <section class="education" id="education">
+        <h2 class="heading">Education </h2>
+
+        <div class="timeline-items">
+
+            <!-- Diploma -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h3>Diploma</h3>
+                        <p>I completed my Diploma in Information 
+                            Technology 
+                            and English at BCAS Campus in 2025, graduating 
+                            with Distinction and Merit. Throughout the 
+                            program, I gained a strong foundation in IT 
+                            principles, networking,and programming, 
+                            I hold the position of Education 
+                             Resource Batch Representative For The 
+                             Society there. This role has allowed me 
+                             to actively contribute to academic initiatives, 
+                             collaborate with peers, and support the growth of
+                              our student community in the field of 
+                              technology ,while 
+                            honing my communication skills in English. This 
+                            academic experience equipped me with both 
+                            technical expertise and a well-rounded skill 
+                            set, preparing me for future challenges in the 
+                            tech industry.
+                        </p>
+                    </div>
+                
+            </div>
+
+             <!-- Higher Diploma -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-content">
+                        <h3>Higher Diploma</h3>
+                        <p>I'm currently pursuing a Higher Diploma in 
+                            Software Engineering from Pearson 
+                             Metropolitan University at ESOFT Metro  Campus.</p>
+                       </div>
+                
+            </div>
+
+        </div>
+    </section>
+    
+
+    <!-- SKills -->
+    <section class="skills" id="skills">
+        <div class="skills-content">
+            <h2>My Skills</h2>
+            <div class="skill-box">
+                <div class="skill" style="--i:1;">
+                    <h3>Full-Stack Development</h3>
+                    <p>Developing dynamic and scalable web applications by leveraging technologies such as HTML, CSS, JavaScript, SQL, React, Node.js, and MongoDB to create efficient and user-friendly solutions.</p>
+                </div>
+                <div class="skill" style="--i:2;">
+                    <h3>Mobile App Development</h3>
+                    <p>Developing seamless mobile applications using technologies like Flutter and React Native to deliver high-performance and intuitive user experiences across platforms</p>
+                </div>
+                <div class="skill" style="--i:3;">
+                    <h3>UI/UX Design</h3>
+                    <p>Crafting user-centric interfaces that deliver smooth, intuitive, and visually appealing experiences, ensuring accessibility and engagement for all users</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- ------------------------------Footer------------------------------------- -->
+
+    <footer class="footer">
+        <div class="social">
+            <a href="https://github.com/Rathwan-7" target="_blank"><i class='bx bxl-github'></i></a>
+            <a href="https://www.linkedin.com/in/mohammed-rathwan-45680632b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class='bx bxl-linkedin'></i></a>
+            <a href="https://www.instagram.com/rathwan_7/"><i class='bx bxl-instagram-alt' target="_blank"></i></a>
+            <a href="https://www.facebook.com/share/1B1bQQxDVR/" target="_blank"><i class='bx bxl-facebook'></i></a>
+        </div>
+    
+        <ul class="list">
+            <li><a href="#home">Home </a></li>
+            <li><a href="#education">Education </a></li>
+            <li><a href="#skills">Skills  </a></li>
+        </ul>
+    
+        <p class="copyright">&copy; 2025 Portfolio | Designed by 
+            <a href="mailto:co.dex11@hotmail.com" target="_blank">CodeX11</a>
+        </p>
+    </footer>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Create an Intersection Observer to observe when elements enter the viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // If the section is in view, add the 'in-view' class
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            });
+    
+            // Observe all the sections you want to animate
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+    
+</body>
+</html>
